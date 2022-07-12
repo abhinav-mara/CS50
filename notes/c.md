@@ -268,10 +268,109 @@ typedef struct
 person;
 ```
 # Finding Memory Leaks in C Program
-## Formatting (Example)
-`
-clang test.c -o test -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
-`
-***Note: <span style="color:purple">Valgrind</span> does not work on an M1 chip, therefore, <span style="color:blue">clang sanitizers</span> are a safe alternative for checking for memory leaks or problems related to memory.***
-[Found the command from this website](https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind#tldr)
-[Another source for using Address Sanitizers](https://www.osc.edu/resources/getting_started/howto/howto_use_address_sanitizer)
+## Process
+1. Boot up Linux (Debian) VM
+2. Share the CS50 directory
+3. Run `wget <localhost URL>` in order to get directory into terminal (guest computer)
+4. Run C program using `valgrind ./<name>`
+
+<b>Note: just download templates of psets on <span style='color:cyan'>VSCode</span>, then open the <span style='color:lightgreen'>C</span> files on <span style='color:orange'>Linux</span>, write code in <span style='color:red'>nano</span> and run in the <span style='color:orange'>Linux</span> itself.</b>
+
+# Playing around with Memory in C
+**Addresses are represented in hexadecimal notation**
+<span style='color:red'><b>Pointer</b></span> : a variable that stores the address of some value (the specific byte in which that value is stored)
+```c
+int n = 50;
+int *p = &n;
+```
+`&` gives the *address* the variable
+`*` indicates that you want to the store not the actual variable and its data type, but rather its address **and** it can be used to <span style='color:red'>de-reference</span> a pointer and figure out the value the pointer is pointing to
+```c
+long a = 289374;
+long *b = &a;
+```
+
+```c
+// how to store a pointer
+<data type of value> *<pointer name> = &<variable whose address we are storing>
+```
+
+```c
+int num = 7;
+int *pointer = &num;
+printf("%p\n", pointer);    //prints pointers
+printf("%p\n", &num);       //prints pointers
+printf("%i\n", *pointer);   //prints value stored in location dicatated by pointer
+```
+Pointers take up <span style='color:crimson'><b>8</b></span> bytes of <span style='color:deepskyblue'>memory</span> (RAM)
+## How Strings work in Memory
+Each bit contains a character with a <span style='color:red'><b>/0</b></span> at the end to mark the end of a string.
+**Remember, a string is basically an array of characters**
+The `string` data type is basically a pointer that points to the first character/bit of the string.
+CS50's `string` has been an alias for `char *`
+## Relationship between Arrays and Memory
+If we have the following code:
+```c
+int a[] = {4, 5, 6, 7};
+```
+then the pointer of `a` will point to the first `int` in the array.
+So, the following code:
+```c
+printf("%i\n", *a);
+```
+would output `4`.
+This is because when we create a pointer to an array, the pointer gives the address to the first bit/element in the array (the compiler knows when to stop at the end automatically).
+### Traversing Arrays through Indexing and through Memory
+Before hand, if we wanted to get an element in array `a` would have to say `a[i]` where `i` is some `int` value that denotes the index of an element in the array. 
+So if were to assign a variable an element in array `a`, it would look something like this:
+```c
+int num1 = a[0];
+int num2 = a[1];
+```
+Now, because we know that a pointer to array points to the first element, and arrays would stored consecutively in memory, then the original pointer would point to the first element, and that pointer plus one would point to the next character...
+So we can also do the same thing with the following code:
+```c
+int num1 = *a;
+int num2 = *(a+1);
+```
+This is what is known as **pointer arithmetic**. 
+# Allocating Memory
+Sometimes, we in order to make a copy of a variable, or for some other reason, we must allocate memory explicitly. In order to do this, we must use `malloc` and `free`. `malloc` is used to allocate a specific number of bytes in memory to a variable and `free` is used to free up those bytes in memory once we are done using them for the computer to use.
+## Example
+```c
+#include <stdlib.h>
+#include <string.h>
+
+int main(void)
+{
+    char *name = "abhinav";
+    char *Name = malloc(strlen(name) + 1);
+    
+    strcopy(Name, name)
+    
+    Name[0] = toupper(Name[0])
+    
+    free(Name);
+}
+```
+In the previous example, we basically created `name` and allocated memory to `Name`. We include  ` + 1` in order to account for the `/0` character. We then copied the contents of `name` into `Name` and only capitalized the first letter in `Name`. So as of now, `name = "abhinav"` while `Name = "Abhinav"`. Then, now that we are done with `Name`, we called `free(Name)` so that we can free up that memory. Also, there may be a time where `malloc` will fail due to the fact that the computer simply does not have enough extra memory lying around that you need. In order to catch that error, you have to include the following code right underneath the line where you use `malloc`:
+```c
+if (t == NULL) // t is the name of variable we attempted to allocate memory to
+{
+    return 1;
+}
+```
+`Malloc` always returns the address of the memory allocated, so whenever we call `malloc` we have to store it in a pointer.
+## Example
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    int *arr = malloc(3 * sizeof(int));
+}
+```
+Basically, we allocated three `int`s worth of memory to `arr` and created its pointer. Now we can treat `arr` as if it were an array.
+# Defining Custom Types
+Baically, we have ways of creating our own data types by using the `struct` keyword. However, it can become very annoying to declare variables using the `struct` keyword plus the name of our data type. Therefore, we can using the `typedef` keyword to basically create an *alias* for our `struct`.

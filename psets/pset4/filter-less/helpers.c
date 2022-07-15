@@ -2,9 +2,13 @@
 #include <math.h>
 #include <stdio.h>
 
-// header
-void swap(RGBTRIPLE* a, RGBTRIPLE* b);
 
+
+
+
+// header for functions
+void swap(RGBTRIPLE* a, RGBTRIPLE* b);
+void blurPixel(RGBTRIPLE* center, RGBTRIPLE surround[], int len);
 
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
@@ -60,11 +64,58 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-    RGBTRIPLE *copy[height][width];
+    RGBTRIPLE copy[height][width];
     // TODO: copy image into copy using for loops
     for (int h = 0; h < height; h++) {
     	for (int w = 0; w < width; w++) {
     		copy[h][w] = image[h][w];
+    	}
+    }
+    
+    // TODO: blur image
+    for (int h = 0; h < height; h++) {
+    	for (int w = 0; w < width; w++) {
+    		// TODO: corner cases
+    		if ((h == 0 && w == 0) || (h == 0 && w == width-1) || (h == height-1 && w == 0) || (h == height-1 && w == width-1)) {
+	    		if (h == 0 && w == 0) {
+	    			RGBTRIPLE s[] = {copy[1][0], copy[1][1], copy[0][1]};
+	    			blurPixel(&image[0][0], s, 3);
+	    		}
+	    		else if (h == 0 && w == width-1) {
+	    			RGBTRIPLE s[] = {copy[h][width-2], copy[h+1][width-2], copy[h+1][width-1]};
+	    			blurPixel(&image[h][w], s, 3);
+	    		}
+	    		else if (h == height-1 && w == 0) {
+	    			RGBTRIPLE s[] = {copy[height-2][w], copy[height-2][w+1], copy[h][w+1]};
+	    			blurPixel(&image[h][w], s, 3);
+	    		}
+	    		else if (h == height-1 && w == width-1) {
+	    			RGBTRIPLE s[] = {copy[height-2][width-2], copy[height-2][w], copy[h][width-2]};
+	    			blurPixel(&image[h][w], s, 3);
+	    		}
+    		}
+    		else if (h == 0 || w == 0 || h == height-1 || w == width-1) {
+    			if (h == 0) {
+    				RGBTRIPLE s[] = {copy[h][w-1], copy[h][w+1], copy[h+1][w], copy[h+1][w-1], copy[h+1][w+1]};
+    				blurPixel(&image[h][w], s, 5);
+    			}
+    			else if (w == 0) {
+    				RGBTRIPLE s[] = {copy[h+1][w], copy[h-1][w], copy[h][w+1], copy[h-1][w+1], copy[h+1][w+1]};
+    				blurPixel(&image[h][w], s, 5);
+    			}
+    			else if (h == height-1) {
+    				RGBTRIPLE s[] = {copy[h][w-1], copy[h][w+1], copy[h-1][w], copy[h-1][w-1], copy[h-1][w+1]};
+    				blurPixel(&image[h][w], s, 5);
+    			}
+    			else {
+    				RGBTRIPLE s[] = {copy[h-1][w], copy[h+1][w], copy[h][w-1], copy[h-1][w-1], copy[h+1][w-1]};
+    				
+    			}
+    		}
+    		else {
+    			RGBTRIPLE s[] = {copy[h-1][w-1], copy[h-1][w], copy[h-1][w+1], copy[h][w-1], copy[h][w+1], copy[h+1][w-1], copy[h+1][w], copy[h+1][w+1]};
+    			blurPixel(&image[h][w], s, 8);
+    		}
     	}
     }
 }
@@ -75,3 +126,21 @@ void swap(RGBTRIPLE* a, RGBTRIPLE* b) {
 	*a = *b;
 	*b = tmp;
 }
+
+void blurPixel(RGBTRIPLE* center, RGBTRIPLE surround[], int len) {
+	int r = 0;
+	int g = 0;
+	int b = 0;
+	for (int i = 0; i < len; i++) {
+		r += surround[i].rgbtRed;
+		g += surround[i].rgbtGreen;
+		b += surround[i].rgbtBlue;
+	}
+	uint8_t fr = round(r/len);
+	uint8_t fg = round(g/len);
+	uint8_t fb = round(b/len);
+	center->rgbtRed = fr;
+	center->rgbtGreen = fg;
+	center->rgbtBlue = fb;
+}
+

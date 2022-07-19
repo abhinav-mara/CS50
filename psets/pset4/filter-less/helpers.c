@@ -1,14 +1,29 @@
 #include "helpers.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
+int gx[3][3] = {
+	{-1, 0, 1},
+	{-2, 0, 2},
+	{-1, 0, 1}
+};
 
-
-
+int gy[3][3] = {
+	{-1, -2, -1},
+	{0, 0, 0},
+	{1, 2, 1}
+};
 
 // header for functions
 void swap(RGBTRIPLE* a, RGBTRIPLE* b);
 void blurPixel(RGBTRIPLE* center, RGBTRIPLE surround[], int len);
+uint8_t* calculateKernels(int kx[3][3], int ky[3][3], RGBTRIPLE surround2D[3][3]);
+int sumKernelValues(int result[3][3]);
+uint8_t sobel(int kx, int ky);
+void updatePixelEdge(uint8_t c[3], RGBTRIPLE* pixel);
+
+
 
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
@@ -120,6 +135,34 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     }
 }
 
+void edge(int height, int width, RGBTRIPLE image[height][width]) {
+	RGBTRIPLE copy[height][width];
+	for (int h = 0; h < height; h++) {
+		for (int w = 0; w < width; w++) {
+			copy[h][w] = image[h][w];
+		}
+	}
+
+	for (int h = 0; h < height; h++) {
+		for (int w = 0; w < width; w++) {
+			if (h == 0 || w == 0 || h == height-1 || w == width-1) {
+				image[h][w].rgbtRed, image[h][w].rgbtGreen, image[h][w].rgbtBlue = 0;
+				copy[h][w].rgbtRed, copy[h][w].rgbtGreen, copy[h][w].rgbtBlue = 0;
+			}
+			else {
+				RGBTRIPLE s[3][3] = {
+					{copy[h-1][w-1], copy[h-1][w], copy[h-1][w+1]},
+					{copy[h][w-1], copy[h][w], copy[h][w+1]},
+					{copy[h+1][w-1], copy[h+1][w], copy[h+1][w+1]}
+				};
+				uint8_t* rgbSums = calculateKernels(gx, gy, s);
+				updatePixelEdge(rgbSums, &image[h][w]);
+				free(rgbSums);
+			}
+		}
+	}
+}
+
 // Swap pixels (helper)
 void swap(RGBTRIPLE* a, RGBTRIPLE* b) {
 	RGBTRIPLE tmp = *a;
@@ -144,3 +187,66 @@ void blurPixel(RGBTRIPLE* center, RGBTRIPLE surround[], int len) {
 	center->rgbtBlue = fb;
 }
 
+uint8_t* calculateKernels(int kx[3][3], int ky[3][3], RGBTRIPLE surround2D[3][3]) {
+	uint8_t* arr = malloc(sizeof(int) * 3);
+	int rx[3][3];
+	int gx[3][3];
+	int bx[3][3];
+	int ry[3][3];
+	int gy[3][3];
+	int by[3][3];
+	for (int r = 0; r < 3; r++) {
+		for (int c = 0; c < 3; c++) {
+			rx[r][c] = kx[r][c] * surround2D[r][c].rgbtRed;
+			ry[r][c] = ky[r][c] * surround2D[r][c].rgbtRed;
+			gx[r][c] = kx[r][c] * surround2D[r][c].rgbtGreen;
+			gy[r][c] = ky[r][c] * surround2D[r][c].rgbtGreen;
+			bx[r][c] = kx[r][c] * surround2D[r][c].rgbtBlue;
+			by[r][c] = ky[r][c] * surround2D[r][c].rgbtBlue;
+		}
+	}
+	int totalRx = sumKernelValues(rx);
+	int totalRy = sumKernelValues(ry);
+	int totalGx = sumKernelValues(gx);
+	int totalGy = sumKernelValues(gy);
+	int totalBx = sumKernelValues(bx);
+	int totalBy = sumKernelValues(by);
+	
+	uint8_t red = sobel(totalRx, totalRy);
+	uint8_t green = sobel(totalGx, totalGy);
+	uint8_t blue = sobel(totalBx, totalBy);
+	
+	arr[0] = red;
+	arr[1] = green;
+	arr[2] = blue;
+	return arr;
+}
+
+int sumKernelValues(int result[3][3]) {
+	int sum = 0;
+	for (int r = 0; r < 3; r++) {
+		for (int c = 0; c < 3; c++) {
+			sum += result[r][c];
+		}
+	}
+	return sum;
+}
+
+uint8_t sobel(int kx, int ky) {
+	int v;
+	if (v = round(sqrt(kx*kx+ky*ky)) > 255) {
+		return 255;
+	}
+	else {
+		return v;
+	}
+}
+
+void updatePixelEdge(uint8_t c[3], RGBTRIPLE* pixel) {
+	uint8_t r = c[0];
+	uint8_t g = c[1];
+	uint8_t b = c[2];
+	pixel->rgbtRed = r;
+	pixel->rgbtGreen = g;
+	pixel->rgbtBlue = b;
+}

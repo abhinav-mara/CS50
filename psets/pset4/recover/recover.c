@@ -16,17 +16,17 @@ int main(int argc, char *argv[])
 	FILE* new = fopen("000.jpg", "a");
 	uint8_t* buffer = malloc(BLOCK_SIZE);
 
-	int ones = -1;
+	int ones = 0;
 	int tens = 0;
 	int hundreds = 0;
 
 	int counter = 0;
 
 	char* name = malloc(sizeof(char) * 8);
-	sprintf(name, "%i%i%i.jpg", hundreds, tens, ones);
 	
 	while (fread(buffer, 1, BLOCK_SIZE, image) == BLOCK_SIZE) {
 		if (buffer[0] == 255 && buffer[1] == 216 && buffer[2] == 255 && (buffer[4] > 223 || buffer[4] < 240)) {
+			sprintf(name, "%i%i%i.jpg", hundreds, tens, ones);
 			if (ones < 9) {
 				ones++;
 			}
@@ -39,9 +39,10 @@ int main(int argc, char *argv[])
 				ones = 0;
 				tens = 0;
 			}	
-			sprintf(name, "%i%i%i.jpg", hundreds, tens, ones);
-			fclose(new);
-			new = fopen(name, "a");	
+			if (counter > 0) {
+				fclose(new);
+				new = fopen(name, "a");
+			}
 			fwrite(buffer, 1, BLOCK_SIZE, new);
 			
 			counter++;

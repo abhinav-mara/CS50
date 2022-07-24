@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	FILE* new = fopen("000.jpg", "a");
 	uint8_t* buffer = malloc(BLOCK_SIZE);
 
-	int ones = 0;
+	int ones = -1;
 	int tens = 0;
 	int hundreds = 0;
 
@@ -36,13 +36,14 @@ int main(int argc, char *argv[])
 			}
 			else {
 				hundreds++;
-				tens = 0;
 				ones = 0;
-			}
+				tens = 0;
+			}	
 			sprintf(name, "%i%i%i.jpg", hundreds, tens, ones);
 			fclose(new);
 			new = fopen(name, "a");	
 			fwrite(buffer, 1, BLOCK_SIZE, new);
+			
 			counter++;
 		}
 		else {

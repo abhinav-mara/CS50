@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
+#include<string.h>
 
 typedef struct node {
 	char* university;
@@ -27,19 +28,44 @@ int main(void) {
 		for (int i = 0; i < 10; i++) {
 			n->children[i] = NULL;
 		}
-		trav->children[years[i]] = n;
-		trav = trav->children[years[i]];
+		int digit;
+		printf("key: ");
+		scanf("%i", &digit);
+		trav->children[digit] = n;
+		trav = trav->children[digit];
 	}
 
-	trav->university ="University of Virginia";
+	trav->university = "University of Virginia";
+
+	printf("Key and respective result have been created\n");
 
 	trav = root;
 
 	while (trav->university == NULL) {
-		for (int i = 0; i < 10; i++) {
-			if (trav->children[i] != NULL) {
-				trav = trav->children[i];
-				i = 0;
+		for (int i = 0; i < 4; i++) {
+			int digit;
+			printf("Key: ");
+			scanf("%i", &digit);
+			if (trav->children[digit] != NULL) {
+				trav = trav->children[digit];
+			}
+			else {
+				printf("Key does not exist\n");
+				trav = root;
+
+				while (trav->university == NULL) {
+					node* tmp;
+					for (int i = 0; i < 10; i++) {
+						if (trav->children[i] != NULL) {
+							tmp = trav->children[i];
+							break;
+						}
+					}
+					free(trav);
+					trav = tmp;
+				}
+				free(trav);
+				return 1;
 			}
 		}
 	}

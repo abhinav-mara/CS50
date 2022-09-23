@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 #include <stdio.h>
 
@@ -34,11 +35,22 @@ bool check(const char *word)
     // TODO
     int index = hash(word);
 
+    char* testWord = malloc(sizeof(word)+1);
+
+    strcpy(testWord, word);
+
+    char nL = '\n';
+
+    strncat(testWord, &nL, 1);
+
     for (node* tmp = table[index]; tmp != NULL; tmp = tmp->next) {
-        if (strcasecmp(tmp->word, word) - 10 == 0) {
+        if (strcasecmp(tmp->word, testWord) == 0) {
+            free(testWord);
             return true;
         }
     }
+
+    free(testWord);
 
     return false;
 }

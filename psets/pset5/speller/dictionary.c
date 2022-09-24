@@ -35,13 +35,13 @@ bool check(const char *word)
     // TODO
     int index = hash(word);
 
-    char* testWord = malloc(sizeof(word)+1);
+    char *nL = "\n";
+
+    char* testWord = malloc(LENGTH+2);
 
     strcpy(testWord, word);
 
-    char nL = '\n';
-
-    strncat(testWord, &nL, 1);
+    strcat(testWord, nL);
 
     for (node* tmp = table[index]; tmp != NULL; tmp = tmp->next) {
         if (strcasecmp(tmp->word, testWord) == 0) {
@@ -51,7 +51,6 @@ bool check(const char *word)
     }
 
     free(testWord);
-
     return false;
 }
 // Hashes word to a number

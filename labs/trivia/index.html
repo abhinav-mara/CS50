@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+         
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                <h3>
+                    What is the best programming language to learn for maximum efficiency?
+                </h3>
+                <button id="wrong1">Python</button>
+                <button id="wrong2">JavaScript</button>
+                <button id="right">C++</button>
+                <button id="wrong3">Java</button>
+                
+                <p id="right-blink">Correct!</p>
+                <p id="wrong-blink">Incorrect.</p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <!-- TODO: Add free response question here -->
+                <h3>What does the NSA stand for?</h3>
+                <input autocomplete="off" id="query-box" type="text">
+                <input id="submit-box" type="submit">
+
+                <p id="rblink">Correct!</p>
+                <p id="wblink">Incorrect.</p>
+            </div>
+        </div>
+
+        <script>
+            // TODO: Add code to check answers to questions
+            let wrongAnswer = document.querySelector('#wrong-blink');
+            let rightAnswer = document.querySelector('#right-blink');
+            let wrongText = document.querySelector('#wblink');
+            let rightText = document.querySelector('#rblink');
+
+            wrongAnswer.style.visibility = 'hidden';
+            rightAnswer.style.visibility = 'hidden';
+            wrongText.style.visibility = 'hidden';
+            rightText.style.visibility = 'hidden';
+
+            let canAnswer = true;
+            let canText = true;
+
+            document.querySelector('#wrong1').addEventListener('click', function()
+                {
+                    if (canAnswer == true) {
+
+                        console.log('event heard');
+                        rightAnswer.style.visibility = 'hidden';
+                        wrongAnswer.style.visibility = 'visible';
+                        document.querySelector('#wrong1').style.backgroundColor = '#ff0000';
+                        setTimeout(function() {
+                            document.querySelector('#wrong1').style.backgroundColor = '#d9edff';
+                        }, 2000);
+                    }
+                });
+            
+            document.querySelector('#wrong2').addEventListener('click', function()
+                {
+                    if (canAnswer == true) {
+                        console.log('event heard');
+                        rightAnswer.style.visibility = 'hidden';
+                        wrongAnswer.style.visibility = 'visible';
+                        document.querySelector('#wrong2').style.backgroundColor = '#ff0000';
+                        setTimeout(function() {
+                            document.querySelector('#wrong2').style.backgroundColor = '#d9edff';
+                        }, 2000);
+                    }
+                });
+
+            document.querySelector('#wrong3').addEventListener('click', function()
+                {
+                    if (canAnswer == true) {
+                        console.log('event heard');
+                        rightAnswer.style.visibility = 'hidden';
+                        wrongAnswer.style.visibility = 'visible';
+                        document.querySelector('#wrong3').style.backgroundColor = '#ff0000';
+                        setTimeout(function() {
+                            document.querySelector('#wrong3').style.backgroundColor = '#d9edff';
+                        }, 2000);
+                    }
+
+                });
+
+            document.querySelector('#right').addEventListener('click', function()
+                {
+                    //TODO: make the "wrong" off
+                    wrongAnswer.style.visibility = 'hidden';
+                    //TODO: turn on the "correct"
+                    rightAnswer.style.visibility = 'visible';
+                    document.querySelector('#right').style.backgroundColor = '#00ff00';
+                    canAnswer = false;
+                });
+
+            document.querySelector('#submit-box').addEventListener('click', function()
+                {
+                    let answer = document.querySelector('#query-box').value;
+                    let field = document.querySelector('#query-box');
+                    if (answer == 'National Security Agency') {
+                        field.style.backgroundColor = '#fff';
+                        field.style.color = 'green';
+                        wrongText.style.visibility = 'hidden';
+                        rightText.style.visibility = 'visible';
+                    }
+                    else {
+                        field.style.color = 'black';
+                        field.style.backgroundColor = 'red';
+                        rightText.style.visibility = 'hidden';
+                        wrongText.style.visibility = 'visible';
+                        setTimeout(function() {
+                            field.style.backgroundColor = '#fff';
+                        }, 2000);
+                    }
+
+                });
+
+
+        </script>
+    </body>
+
+</html>

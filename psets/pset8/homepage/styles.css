@@ -1,0 +1,19 @@
+.header-top {
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.card {
+    border-width: 10px;
+    border-color: red;
+    margin-left: 70px;
+}
+
+.back-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}

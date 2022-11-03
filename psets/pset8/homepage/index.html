@@ -8,15 +8,15 @@
         <title>My Webpage - Homepage</title>
     </head>
     <body>
-        <h1 class="header-top">My Homepage</h1>
+        <h1 class="header-top"><b>MY HOMEPAGE</b></h1>
         <div class="row" style="display: flex; align-items:center; justify-content: center;">
             <div class="col-md-3">
                 <div class="card" id="resume-card">
                     <img src="images/trophy.webp" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">Resume</h5>
+                        <h5 class="card-title crd-hd">Resume</h5>
                         <p class="card-text">See my resume as of November 2022. Includes work experiences, projects, activities, and education</p>
-                        <a href="pages/resume.html" class="btn btn-primary">Go to resume</a>
+                        <a href="pages/resume.html" class="btn btn-danger card-btn">Go to resume</a>
                     </div>
                 </div>
             </div>
@@ -24,9 +24,9 @@
                 <div class="card" id="hobbies-card">
                     <img src="images/sports.jpg" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">Hobbies</h5>
+                        <h5 class="card-title crd-hd">Hobbies</h5>
                         <p class="card-text">A list of all of my hobbies as well as what I plan on getting into</p>
-                        <a href="pages/hobbies.html" class="btn btn-primary">Go to hobbies</a>
+                        <a href="pages/hobbies.html" class="btn btn-danger card-btn">Go to hobbies</a>
                     </div>
                 </div>
             </div>
@@ -34,9 +34,9 @@
                 <div class="card" id="career-card">
                     <img src="images/career_path_cartoon.jpg" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">Career Roadmap</h5>
+                        <h5 class="card-title crd-hd">Career Roadmap</h5>
                         <p class="card-text">A roadmap of what I plan on doing for my career and my next steps</p>
-                        <a href="pages/career.html" class="btn btn-primary">Go to career roadmap</a>
+                        <a href="pages/career.html" class="btn btn-danger card-btn">Go to career roadmap</a>
                     </div>
                 </div>
             </div>
@@ -44,9 +44,9 @@
                 <div class="card" id="improvement-card">
                     <img src="images/hamza_improvement.jpg" class="img-top-top">
                     <div class="card-body">
-                        <h5 class="card-title">Self-Improvement Roadmap</h5>
+                        <h5 class="card-title crd-hd">Self-Improvement Roadmap</h5>
                         <p class="card-text">A roadmap of what I am doing and what I plan on doing in order to better myself</p>
-                        <a href="pages/improvement.html" class="btn btn-primary">Go to self-improvement roadmap</a>
+                        <a href="pages/improvement.html" class="btn btn-danger card-btn" style="align:center">Go to self-improvement roadmap</a>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,6 @@
         for (let i = 0; i < cards.length; i++) {
             cards[i].addEventListener('mouseover', function()
                 {
-                    // TODO: Add the pop up effect
                     cards[i].style.width = '310px';
                     cards[i].style.height = '610px';
                     for (let j = 0; j < cards.length; j++) {
@@ -69,7 +68,6 @@
                 });
             cards[i].addEventListener('mouseout', function()
                 {
-                    // TODO: Return card back to normal
                     for (let j = 0; j < cards.length; j++) {
                         cards[j].style.width = '300px';
                         cards[j].style.height = '600px';

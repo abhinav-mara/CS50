@@ -9,9 +9,9 @@
     </head>
     <body>
         <h1 class="header-top">My Homepage</h1>
-        <div class="row">
+        <div class="row" style="display: flex; align-items:center; justify-content: center;">
             <div class="col-md-3">
-                <div class="card" id="resume-card" style="width: 19rem">
+                <div class="card" id="resume-card">
                     <img src="images/trophy.webp" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">Resume</h5>
@@ -21,17 +21,17 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card" id="hobbies-card" style="width: 19rem">
+                <div class="card" id="hobbies-card">
                     <img src="images/sports.jpg" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-body">Hobbies</h5>
+                        <h5 class="card-title">Hobbies</h5>
                         <p class="card-text">A list of all of my hobbies as well as what I plan on getting into</p>
                         <a href="pages/hobbies.html" class="btn btn-primary">Go to hobbies</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card" id="career-card" style="width: 19rem">
+                <div class="card" id="career-card">
                     <img src="images/career_path_cartoon.jpg" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">Career Roadmap</h5>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card" id="improvement-card" style="width: 19rem">
+                <div class="card" id="improvement-card">
                     <img src="images/hamza_improvement.jpg" class="img-top-top">
                     <div class="card-body">
                         <h5 class="card-title">Self-Improvement Roadmap</h5>
@@ -52,4 +52,29 @@
             </div>
         </div>
     </body>
+    <script>
+        let cards = document.querySelectorAll('.card');
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].addEventListener('mouseover', function()
+                {
+                    // TODO: Add the pop up effect
+                    cards[i].style.width = '310px';
+                    cards[i].style.height = '610px';
+                    for (let j = 0; j < cards.length; j++) {
+                        if (j != i) {
+                            cards[j].style.width = '290px';
+                            cards[j].style.height = '590px';
+                        }
+                    }
+                });
+            cards[i].addEventListener('mouseout', function()
+                {
+                    // TODO: Return card back to normal
+                    for (let j = 0; j < cards.length; j++) {
+                        cards[j].style.width = '300px';
+                        cards[j].style.height = '600px';
+                    }
+                });
+        }
+    </script>
 </html>

@@ -1,0 +1,24 @@
+.horizontal-card-img {
+    border: 5px solid red;
+    border-radius: 5px;
+    border-style:outset;
+}
+
+.horizontal-card-content {
+    positive: relative;
+}
+
+.horizontal-card-title {
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 3px black;
+}
+
+.horizontal-card-body {
+    position:absolute;
+    z-index:1;
+    background-color: #fff;
+    width: 800px;
+    height: 200px;
+    left: 200px;
+}

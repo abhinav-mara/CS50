@@ -1,37 +1,29 @@
 .header-top {
     text-align: center;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    color: red;
-    letter-spacing: 10px;
-    text-shadow: 4px 4px black;
+    color: gray;
+    text-shadow: 2px 2px red;
+    transition: font-size 2s;
+}
+
+.header-top:hover {
+    font-size: 100px;
 }
 
 .card {
+    width: 18rem;
     border-width: 10px;
-    border-color: red;
-    margin-left: 70px;
-    width: 300px;
-    height: 600px;
-    transition: width 0.5s, height 0.5s;
-    box-shadow: 10px 10px #7d7c7c;
+    border-color: gray;
+    transition: border-color 1s, width 1s;
+    padding: 10px;
+    background-color: red;
 }
 
-.back-btn {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-bottom: 20px;
-    margin-right: 20px;
+.card:hover {
+    border-color: orange;
+    width: 19rem;
 }
 
-.card-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.crd-hd {
-    color: red;
+body {
+    background-color: black;
 }
 

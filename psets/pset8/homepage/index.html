@@ -7,72 +7,40 @@
         <link href="styles.css" rel="stylesheet">
         <title>My Webpage - Homepage</title>
     </head>
+    <header>
+        <h1 class="header-top" style="margin-top: 50px">MY HOMEPAGE</h1>
+    </header>
     <body>
-        <h1 class="header-top"><b>MY HOMEPAGE</b></h1>
-        <div class="row" style="display: flex; align-items:center; justify-content: center;">
-            <div class="col-md-3">
-                <div class="card" id="resume-card">
-                    <img src="images/trophy.webp" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title crd-hd">Resume</h5>
-                        <p class="card-text">See my resume as of November 2022. Includes work experiences, projects, activities, and education</p>
-                        <a href="pages/resume.html" class="btn btn-danger card-btn">Go to resume</a>
-                    </div>
+        <div class="row" style="margin-left: 40px; margin-top: 50px">
+            <div class="col">
+                <div class="card">
+                    <img src="images/trophy.webp">
+                    <a href="pages/resume.html" class="btn btn-primary">Resume</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card" id="hobbies-card">
-                    <img src="images/sports.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title crd-hd">Hobbies</h5>
-                        <p class="card-text">A list of all of my hobbies as well as what I plan on getting into</p>
-                        <a href="pages/hobbies.html" class="btn btn-danger card-btn">Go to hobbies</a>
-                    </div>
+            <div class="col">
+                <div class="card">
+                    <img src="images/sports.jpg">
+                    <a href="pages/hobbies.html" class="btn btn-primary">Hobbies</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card" id="career-card">
-                    <img src="images/career_path_cartoon.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title crd-hd">Career Roadmap</h5>
-                        <p class="card-text">A roadmap of what I plan on doing for my career and my next steps</p>
-                        <a href="pages/career.html" class="btn btn-danger card-btn">Go to career roadmap</a>
-                    </div>
+            <div class="col">
+                <div class="card">
+                    <img src="images/career_path_cartoon.jpg">
+                    <a href="pages/career.html" class="btn btn-primary">Career</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card" id="improvement-card">
-                    <img src="images/hamza_improvement.jpg" class="img-top-top">
-                    <div class="card-body">
-                        <h5 class="card-title crd-hd">Self-Improvement Roadmap</h5>
-                        <p class="card-text">A roadmap of what I am doing and what I plan on doing in order to better myself</p>
-                        <a href="pages/improvement.html" class="btn btn-danger card-btn" style="align:center">Go to self-improvement roadmap</a>
-                    </div>
+            <div class="col">
+                <div class="card">
+                    <img src="images/hamza_improvement.jpg">
+                    <a href="pages/improvement.html" class="btn btn-primary">Self Improvement</a>
                 </div>
             </div>
         </div>
     </body>
+    <footer>
+        footer
+    </footer>
     <script>
-        let cards = document.querySelectorAll('.card');
-        for (let i = 0; i < cards.length; i++) {
-            cards[i].addEventListener('mouseover', function()
-                {
-                    cards[i].style.width = '310px';
-                    cards[i].style.height = '610px';
-                    for (let j = 0; j < cards.length; j++) {
-                        if (j != i) {
-                            cards[j].style.width = '290px';
-                            cards[j].style.height = '590px';
-                        }
-                    }
-                });
-            cards[i].addEventListener('mouseout', function()
-                {
-                    for (let j = 0; j < cards.length; j++) {
-                        cards[j].style.width = '300px';
-                        cards[j].style.height = '600px';
-                    }
-                });
-        }
     </script>
 </html>

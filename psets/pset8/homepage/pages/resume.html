@@ -8,8 +8,56 @@
         <link href="../styles.css" rel="stylesheet">
         <title>My Webpage - Resume</title>
     </head>
-    <body>
+    <header>
         <h1 class="header-top"><b>Resume</b></h1>
+<<<<<<< HEAD
+    </header>
+    <body>
+        <div class="row">
+            <div class="col">
+                <img class="resume-entry-img" src="../images/webscraper.png">
+            </div>
+            <div class="col entry-content">
+                <h3>2011 Census of India Webscraper</h3>
+                <p>My first "freelancing" job. I was given this project by a cousin. Basically, I created a webscraper using Selenium in Python that scraped every village in every town in every district in every state in India. I did this by utilizing multiprocessing. The vast number of iterations resulted in the program repeatedly crashing. In order to fix this, I created a process for each state that wrote the data into a JSON file. Then, I combined all of those JSON files into a single JSON file. </p>
+                <a id="link-btn" class="btn btn-primary" href="github.com/abhinav-mara/coi_webscraper">Click here to go to the GitHub Repository.</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="resume-entry-img" src="../images/mobile_app.png">
+            </div>
+            <div class="col entry-content">
+                <h3>Galax Fight</h3>
+                <p>I created a mobile game using Swift and SpriteKit. This was a personal project that I decided to do in order to expand my horizons. I learned Swift for iOS in order to do this. I created a two-player shooter game. You can find Galax Fight on the App Store for iOS. </p>
+                <a id="link-btn" class="btn btn-primary" href="github.com/Abhi6/GalaxFight">Click here to go to the GitHub Repository.</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="resume-entry-img" src="../images/api.png">
+            </div>
+            <div class="col entry-content">
+                <h3>COVID-19 API</h3>
+                <p>I created  COVID-19 API. I used Selenium in Python to scrape a certain website that contained statistics about COVID 19. The data I scraped included total deaths in the country, each state, each county, as well as total infections, death rates, infection rates, and more. I wrote all of this information to a JSON file. I then used FastAPI in Python to create endpoints to access the data from the JSON file. After that, I created a small EC2 AWS instance from Amazon to get the API running. Currently, the EC2 instance has been discontinued, so that API is not running. </p>
+                <a id="link-btn" class="btn btn-primary" href="github.com/Abhi6/COVID19API">Click here to go to the GitHub Repository</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="resume-entry-img" src="../images/gaming.webp">
+            </div>
+            <div class="col entry-content">
+                <h3>Square Shootr</h3>
+                <p>I created a computer game using C# and the Unity Game Engine. It is a forever-lasting top-down shooter game where you are a triangular-looking player that has to shoot at the squares that are coming at you. You can also get power ups on the way. </p>
+                <a id="square-shootr-btn" class="btn btn-primary" href="itch.io/">Click here to play</a>
+            </div>
+        </div>
+=======
         <a href="../index.html" class="btn btn-danger back-btn">Go back to homepage</a>
+>>>>>>> df9d5944ab63cad22130f713eee757d4b77593aa
     </body>
+    <footer>
+        <a id="back-btn" href="../index.html" class="btn btn-danger back-btn">Go back to homepage</a>
+    </footer>
 </html>

@@ -14,12 +14,19 @@
     border-width: 10px;
     border-color: gray;
     transition: border-color 1s, width 1s;
+<<<<<<< HEAD
+=======
     padding: 10px;
+>>>>>>> df9d5944ab63cad22130f713eee757d4b77593aa
     background-color: red;
 }
 
 .card:hover {
+<<<<<<< HEAD
+    border-color: red;
+=======
     border-color: orange;
+>>>>>>> df9d5944ab63cad22130f713eee757d4b77593aa
     width: 19rem;
 }
 

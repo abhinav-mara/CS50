@@ -1,24 +1,51 @@
-.horizontal-card-img {
-    border: 5px solid red;
-    border-radius: 5px;
-    border-style:outset;
-}
-
-.horizontal-card-content {
-    positive: relative;
-}
-
-.horizontal-card-title {
+body {
     color: white;
-    text-align: center;
-    text-shadow: 2px 2px 3px black;
+    background-color: white;
 }
 
-.horizontal-card-body {
-    position:absolute;
-    z-index:1;
-    background-color: #fff;
-    width: 800px;
-    height: 200px;
+h3 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    visibility: visible;
+    z-index: -1;
+}
+
+#link-btn {
+    position: absolute;
     left: 200px;
+}
+
+#square-shootr-btn {
+    position: absolute;
+    left: 275px;
+}
+
+#back-btn {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+img.resume-entry-img {
+    width: 50rem;
+    border-style: solid;
+    border-width: 20px;
+    border-color: gray;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.entry-content {
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin: auto;
+    position: relative;
+    padding-bottom: 50px;
+    padding-top: 50px;
 }
